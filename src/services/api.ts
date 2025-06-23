@@ -1,6 +1,3 @@
-// API service for website analysis
-
-// Define the response type based on the expected API response
 export interface AnalysisResponse {
   html_version: string;
   page_title: string;
@@ -18,13 +15,10 @@ export interface AnalysisResponse {
   contains_login_form: boolean;
 }
 
-// Function to analyze a website URL
 export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
   try {
-    // The issue description shows a GET request with a body, but browsers don't support this well
-    // Using POST is more appropriate for sending data
-    const response = await fetch('http://localhost:8080/api/v1/', {
-      method: 'GET',
+    const response = await fetch(import.meta.env.VITE_API_BASE_URL, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
