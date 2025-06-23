@@ -1,4 +1,5 @@
 import HomeForm from '@/components/home';
+import ResultDialog from '@/components/result-dialog';
 
 export function Home() {
     return (
@@ -9,7 +10,7 @@ export function Home() {
                     <HomeForm />
                 </div>
             </div>
-            {/*<ResultDialog />*/}
+            <ResultDialog />
         </>
     );
 }
