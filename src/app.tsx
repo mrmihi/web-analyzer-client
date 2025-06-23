@@ -1,12 +1,12 @@
 import './styles/index.css'
 import { default as Pages } from './pages';
+import { ToastProvider } from './providers/toast-provider';
 
 function App() {
-
   return (
-      <>
-        <Pages />
-      </>
+    <ToastProvider>
+      <Pages />
+    </ToastProvider>
   )
 }
 

@@ -10,7 +10,9 @@ export function Home() {
                     <HomeForm />
                 </div>
             </div>
-            <ResultDialog />
+            <ResultDialog open={false} onClose={function(): void {
+                throw new Error('Function not implemented.');
+            } } data={null} />
         </>
     );
 }
