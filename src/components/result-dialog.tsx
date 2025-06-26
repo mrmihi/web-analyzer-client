@@ -19,16 +19,16 @@ export default function ResultDialog({ open, onClose, data }: ResultDialogProps)
             <div className="text-gray-500">HTML Version:</div>
             <div>{data.html_version}</div>
             <div className="text-gray-500">Page Title:</div>
-            <div>{data.page_title}</div>
+            <div>{data.title}</div>
             <div className="text-gray-500">Login Form:</div>
-            <div>{data.contains_login_form ? "Yes" : "No"}</div>
+            <div>{data.login_form ? "Yes" : "No"}</div>
           </div>
         </div>
 
         <div className="rounded-md bg-gray-50 p-3">
           <h3 className="font-medium">Heading Counts</h3>
           <div className="mt-2 grid grid-cols-6 gap-2 text-sm">
-            {Object.entries(data.heading_counts).map(([heading, count]) => (
+            {Object.entries(data.headings).map(([heading, count]) => (
               <div key={heading} className="flex flex-col items-center">
                 <div className="font-medium">{heading.toUpperCase()}</div>
                 <div>{count}</div>
@@ -42,15 +42,15 @@ export default function ResultDialog({ open, onClose, data }: ResultDialogProps)
           <div className="mt-2 grid grid-cols-3 gap-2 text-sm">
             <div className="flex flex-col items-center">
               <div className="text-gray-500">Internal</div>
-              <div className="text-lg font-medium">{data.internal_link_count}</div>
+              <div className="text-lg font-medium">{data.internal_links}</div>
             </div>
             <div className="flex flex-col items-center">
               <div className="text-gray-500">External</div>
-              <div className="text-lg font-medium">{data.external_link_count}</div>
+              <div className="text-lg font-medium">{data.external_links}</div>
             </div>
             <div className="flex flex-col items-center">
               <div className="text-gray-500">Inaccessible</div>
-              <div className="text-lg font-medium">{data.inaccessible_link_count}</div>
+              <div className="text-lg font-medium">{data.inaccessible_links}</div>
             </div>
           </div>
         </div>
