@@ -17,18 +17,29 @@ export interface AnalysisResponse {
 
 export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}analyze/?url=${encodeURIComponent(url)}`, {
+    const formattedURL = new URL(url);
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}analyze/?url=${formattedURL}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+      return await response.json();
+    } else {
+      try {
+        const errorData = await response.json();
+        if (errorData && errorData.error) {
+          throw new Error(errorData.error);
+        }
+      } catch (error){
+        console.error('Error analyzing website:', error);
+        throw error;
+      }
+
       throw new Error(`API error: ${response.status} ${response.statusText}`);
     }
-
-    return await response.json();
   } catch (error) {
     console.error('Error analyzing website:', error);
     throw error;
