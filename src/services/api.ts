@@ -18,7 +18,8 @@ export interface AnalysisResponse {
 export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
   try {
     const formattedURL = new URL(url);
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}analyze/?url=${formattedURL}`, {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api/v1/';
+    const response = await fetch(`${apiBaseUrl}analyze/?url=${formattedURL}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
