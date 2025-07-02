@@ -40,12 +40,21 @@ export function AnalyzerForm({
             setDialogOpen(true);
         } catch (error) {
             console.error("Error analyzing website:", error);
-            showToast(
-                error instanceof Error 
-                    ? error.message 
-                    : "Failed to analyze website. Please try again.",
-                "error"
-            );
+
+            const message = (() => {
+                if (error instanceof Error) return error.message;
+                if (
+                    error &&
+                    typeof error === "object" &&
+                    "message" in error &&
+                    typeof (error as any).message === "string"
+                ) {
+                    return (error as any).message;
+                }
+                return "Failed to analyze website. Please try again.";
+            })();
+
+            showToast(message, "error");
         } finally {
             setLoading(false);
         }

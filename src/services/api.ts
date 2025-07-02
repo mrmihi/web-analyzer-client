@@ -31,8 +31,14 @@ export async function analyzeWebsite(url: string): Promise<AnalysisResponse> {
     } else {
       try {
         const errorData = await response.json();
-        if (errorData && errorData.error) {
-          throw new Error(errorData.error);
+        if (errorData) {
+          const errorMessage =
+            (typeof errorData.error === "string" && errorData.error.trim() !== "" && errorData.error) ||
+            (typeof errorData.message === "string" && errorData.message.trim() !== "" && errorData.message);
+
+          if (errorMessage) {
+            throw new Error(errorMessage);
+          }
         }
       } catch (error){
         console.error('Error analyzing website:', error);
